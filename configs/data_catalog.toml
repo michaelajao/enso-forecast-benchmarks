@@ -1,0 +1,114 @@
+# Source catalogue, assessed 2026-10-18. Paths are relative to data/raw/.
+# This is a description for researchers and agents, not an automatic cleaning job.
+raw_root = "data/raw"
+
+[[datasets]]
+id = "nino34_monthly_supplied"
+path = "sst/SST (Nino 3.4 region)/Global_SST_Analysis_1854_2026/Nino34_SSTA_1950_2026.xlsx"
+role = "derived regional series"
+frequency = "monthly"
+date_column = "Date"
+value_columns = ["Nino34_SST_C", "Nino34_SSTA_C"]
+coverage = "1950-01 through 2026-08; 920 rows"
+units = "degree_C"
+baseline = "1991-2020 monthly climatology"
+status = "internally consistent; reproduce from raw source before forecasting claims"
+note = "Monthly SSTA, not independently verified official ONI or RONI. Reproduced exactly (0.0 C) from ERSST v5 unweighted box mean; the project dataset uses ERSST v6 instead."
+
+[[datasets]]
+id = "sst_ersst_v5"
+path = "sst/sst.mnmean.nc"
+role = "global gridded source"
+frequency = "monthly"
+value_columns = ["sst"]
+coverage = "1854-01 through 2026-08"
+units = "degC"
+status = "choose consistently with ERSSTv6 alternative; duplicated regional-folder copy"
+note = "2-degree grid with descending latitude; regional folder copies are global inputs."
+
+[[datasets]]
+id = "sst_ersst_v6"
+path = "sst/ersst.v6.1850-last.nc"
+role = "alternative global gridded source"
+frequency = "monthly"
+value_columns = ["sst", "ssta"]
+coverage = "1850-01 through 2026-08"
+units = "degree_C"
+baseline = "1991-2020 for ssta, per metadata"
+status = "SELECTED SST source; canonical copy is the SST (DMI) path; the ETIO and WTIO copies are byte-identical"
+note = "Ascending latitude; Gregorian month offsets need explicit calendar-month handling."
+
+[[datasets]]
+id = "precipitation_era5"
+path = "ERA5_Precipitation_1975_2026"
+file_pattern = "ERA5_Total_Precipitation_*.nc"
+role = "global gridded source"
+frequency = "monthly mean of daily accumulations"
+value_columns = ["tp"]
+coverage = "1975-01 through 2026-08; 620 months"
+stored_units = "m"
+effective_units = "m/day, from moda/avgad metadata and ECMWF documentation"
+units_reference = "https://confluence.ecmwf.int/pages/viewpage.action?pageId=177481858"
+status = "confirm desired output unit; use mm/day or month-length-adjusted monthly totals explicitly"
+note = "Same nominal resolution as wind, but shifted grid nodes; join regional summaries by month."
+
+[[datasets]]
+id = "wind_ccmp_monthly"
+path = "CCMP_V03.0_Monthly"
+file_pattern = "YEAR/CCMP_Wind_Analysis_YYYYMM_V03.0_L4.5.nc"
+role = "global gridded source"
+frequency = "monthly"
+value_columns = ["u", "v", "w"]
+nominal_coverage = "1993-01 through 2026-08; 404 filenames"
+units = "m/s"
+status = "supplied 2019-01..09 are 2016 copies; replaced by verified RSS downloads in data/external/ccmp_v3.0_2019_replacement/ (2026-10-18); version-aware loading in scripts/prepare_data.py (build)"
+replaced_months = ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08", "2019-09"]
+note = "These nine files are byte-identical to corresponding 2016 files. Source switches v3.0 to v3.1 in 2020; filenames do not reflect that switch."
+
+[[datasets]]
+id = "ohc_700_calendar_quarters"
+path = "ohc/heat_content_anomaly_0-700_seasonal.nc"
+role = "global gridded source"
+frequency = "calendar quarterly, Jan-Mar / Apr-Jun / Jul-Sep / Oct-Dec"
+value_columns = ["h18_hc"]
+coverage = "1955Q1 through 2026Q2; 286 intervals"
+units = "10^18_joules"
+status = "align using raw interval bounds; review derived meteorological season labels"
+note = "Keep a separate quarterly table, or define a past-only availability join; not monthly observations."
+
+[[datasets]]
+id = "ohc_2000_calendar_quarters"
+path = "ohc/heat_content_anomaly_0-2000_seasonal.nc"
+role = "global gridded source"
+frequency = "calendar quarterly"
+value_columns = ["h18_hc"]
+coverage = "2005Q1 through 2026Q2; 86 intervals"
+units = "10^18_joules"
+status = "shorter coverage than 700m; requires explicit time alignment"
+
+[[datasets]]
+id = "etio_monthly_supplied"
+path = "ERA5_Precipitation_1975_2026/ETIO_Monthly_SST_1950_2026.xlsx"
+role = "derived regional series, despite precipitation folder location"
+frequency = "monthly"
+date_column = "Date"
+value_columns = ["ETIO_Monthly_SST"]
+coverage = "1950-01 through 2026-08; 920 rows"
+units = "degree_C, per source script"
+status = "validate region/product and rebuild anomalies using an explicit reference period"
+note = "Same table appears under WTIO; paired climatology outputs disagree between 1990-2020 and 1991-2020. Do not treat copies as independent predictors."
+
+[[datasets]]
+id = "enso_unified_monthly"
+path = "data/processed/enso_monthly.csv"
+role = "project dataset, built by scripts/prepare_data.py (build) from the selected raw sources"
+frequency = "monthly"
+coverage = "1950-01 through 2026-08; wind from 1993, precipitation from 1975"
+status = "generated; not version-controlled; rebuild from raw"
+
+[[datasets]]
+id = "enso_unified_quarterly"
+path = "data/processed/enso_quarterly.csv"
+role = "project dataset with OHC regional sums and complete-quarter means of monthly indices"
+frequency = "calendar quarterly"
+status = "generated; not version-controlled; rebuild from raw"

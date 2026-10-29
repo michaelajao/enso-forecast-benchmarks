@@ -1,0 +1,17 @@
+# Copy to data_sources.local.toml when the data are supplied.
+# Paths can be absolute or relative to the project root.
+source_path = "data/raw"
+
+# For a ZIP archive, set source_path to its path. To preview a table inside it:
+# target_member = "folder/monthly_measurements.xlsx"
+
+# Or select a local CSV, TSV or XLSX table for preview:
+# table_path = "data/raw/monthly_measurements.csv"
+
+# Optional overrides for the build and grid-check commands. Paths are relative
+# to the project root, or absolute paths kept only in data_sources.local.toml.
+[source_directories]
+sst = "data/raw/sst"
+ohc = "data/raw/ohc"
+wind = "data/raw/CCMP_V03.0_Monthly"
+precipitation = "data/raw/ERA5_Precipitation_1975_2026"
