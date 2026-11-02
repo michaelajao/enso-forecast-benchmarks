@@ -166,30 +166,6 @@ their input forecasts. Empty directories are not stored in Git.
 On Windows, if numerical scripts encounter memory-allocation errors, set
 `$env:OPENBLAS_NUM_THREADS="1"` in PowerShell before starting the command.
 
-## Evaluation and reproducibility
-
-The primary evaluation is designed around chronological rolling origins,
-training-period model fitting and preprocessing, and training-period selection
-of network settings and regression penalties. Target months must precede the
-fitting cutoff, and quarterly inputs become available after the quarter ends.
-Comparisons use paired forecasts and moving-block bootstrap intervals over years.
-Maximum forecast leads differ between model families; missing leads do not imply
-zero skill.
-
-Random-split, test-selected and other deliberately non-chronological variants are
-evaluation diagnostics. Their apparent skill must be reported separately from
-the primary chronological comparisons.
-
-An evaluation audit remains necessary for centred RONI labels at fitting cutoffs
-and for preprocessing and target availability within inner validation splits.
-Affected results should not be described as fully isolated validation until those
-checks are resolved.
-
-To reproduce a numerical result, record the code revision, dependency versions,
-input versions and checksums, forecast dates, random seeds and fixed settings.
-Keep outputs separate when any of these change. Recover or regenerate missing
-artifacts before running dependent scoring commands.
-
 ## Repository layout
 
 ```text
@@ -219,25 +195,6 @@ venue has been assigned here.
   note  = {Manuscript in preparation},
 }
 ```
-
-Place the completed entry in `references.bib`. A minimal LaTeX example is:
-
-```latex
-\documentclass{article}
-\begin{document}
-
-We use the ENSO forecasting framework described in
-\cite{ensoForecastBenchmarks}.
-
-\bibliographystyle{plain}
-\bibliography{references}
-\end{document}
-```
-
-For a published journal article, change the entry type to `@article`, add the
-journal, volume, pages or article number and DOI, and replace the draft note.
-When identifying the code, include the repository URL and the exact commit or
-release used for the analysis.
 
 ## License
 
