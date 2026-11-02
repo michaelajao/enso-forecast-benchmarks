@@ -38,13 +38,13 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from enso_climate.paths import ensure_output_directories  # noqa: E402
+from enso_climate.paths import ensure_output_directories
 
-from enso_climate.data import (  # noqa: E402
+from enso_climate.data import (
     box_mean, inventory, load_ersst, monthly_anomaly, read_table, relative_anomaly, summarize, write_inventory,
 )
-from enso_climate.forecast import load_monthly  # noqa: E402
-from enso_climate.paths import (  # noqa: E402
+from enso_climate.forecast import load_monthly
+from enso_climate.paths import (
     DATA_DIR, REPORTS_DIR, load_local_config, resolve_project_path, source_directory,
 )
 
@@ -285,7 +285,7 @@ def download_oras5() -> None:
             months = list(range(1, date.today().month))
         try:
             archive = request_year(client, year, months)
-        except Exception as error:  # noqa: BLE001
+        except Exception as error:
             print(f"{year}: download failed: {str(error)[:200]}", flush=True)
             continue
         if process:

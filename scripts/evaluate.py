@@ -27,20 +27,20 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from enso_climate.paths import ensure_output_directories  # noqa: E402
+from enso_climate.paths import ensure_output_directories
 
-from enso_climate.forecast import (  # noqa: E402
+from enso_climate.forecast import (
     FORECAST_COLUMNS, _block_bootstrap_interval, anomaly_correlation, block_resample, bootstrap_difference, bootstrap_skill, mark_significant,
     phase_scores, recalibrate_amplitude, select_forecasts, skill_table,
 )
-from enso_climate.plotting import AXIS, BLUE, DARK_BLUE, GREEN, INK2, LIGHT_BLUE, MUTED, ORANGE, RED, style, suptitle  # noqa: E402
+from enso_climate.plotting import AXIS, BLUE, DARK_BLUE, GREEN, INK2, LIGHT_BLUE, MUTED, ORANGE, RED, style, suptitle
 
 TABLES = ROOT / "reports" / "tables"
 FIGURES = ROOT / "reports" / "figures"
@@ -534,7 +534,7 @@ def seasonal_target() -> None:
 
 
 def table_s1() -> None:
-    """Supplementary Table S1: ACC with 95% block-bootstrap intervals for the main models.
+    """ACC with 95% block-bootstrap intervals for the main models.
 
     Uses saved forecasts (E3, E7, E8, E13 and selected E23). Writes reports/tables/table_s1.csv."""
     d = main_model_forecasts()
@@ -587,7 +587,7 @@ def e24_extension() -> None:
 
     Requires all 43 origin checkpoints and manifests for both E24 variants, plus E7.
     Add --with-gridded to require and compare E8 and training-selected E23 forecasts.
-    Writes only e24_*.csv; never changes E3/E3b tables or manuscript values.
+    Writes only e24_*.csv; never changes E3/E3b tables.
     """
     parts = []
     for variant, folder, labels in (

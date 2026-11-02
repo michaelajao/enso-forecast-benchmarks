@@ -27,28 +27,28 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-import torch  # noqa: E402
-from sklearn.linear_model import RidgeCV  # noqa: E402
-from sklearn.model_selection import KFold  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import torch
+from sklearn.linear_model import RidgeCV
+from sklearn.model_selection import KFold
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from enso_climate.paths import ensure_output_directories  # noqa: E402
+from enso_climate.paths import ensure_output_directories
 
-from enso_climate.forecast import (  # noqa: E402
+from enso_climate.forecast import (
     FORECAST_COLUMNS, INPUT_SETS, TRAIN_START, FeatureSpec, RidgeModel, RollingConfig, anomalies_from_training,
     anomaly_correlation, bootstrap_difference, bootstrap_skill, build_features, load_inputs, mark_significant,
     rolling_forecasts, select_forecasts, skill_table,
 )
-from enso_climate.gridded import GridConfig, rolling_gridded  # noqa: E402
-from enso_climate.mtl import (  # noqa: E402
+from enso_climate.gridded import GridConfig, rolling_gridded
+from enso_climate.mtl import (
     MTLConfig, choose_ridge_alphas, make_batch, make_targets, ridge_weights, rolling_mtl, train_net,
 )
-from enso_climate.plotting import (  # noqa: E402
+from enso_climate.plotting import (
     AMBER, AXIS, BLUE, DARK_BLUE, GREEN, INK2, LIGHT_BLUE, LIGHT_GREEN, MUTED, ORANGE, PINK, plot_acc_rmse, style,
     suptitle,
 )

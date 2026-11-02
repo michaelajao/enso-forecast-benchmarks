@@ -1,21 +1,19 @@
-"""Figure style: the publication style of the paper figures and the helpers of the report figures.
+"""Figure style: the style of the final figures and the helpers of the experiment figures.
 
-Publication figures (scripts/make_paper_figures.py) call ``apply()`` and are drawn at their
-printed size (``DOUBLE`` or ``SINGLE`` column width, in inches), so the font sizes below are the
-sizes on the page: 8 pt text and 7.5 pt tick labels, inside the 6-9 pt range that AMS, AGU and
-Springer journals ask for. They are saved as 300 dpi PNGs; if a PDF is ever needed, TrueType
-fonts are embedded (``pdf.fonttype`` 42). Colour encodes the model family and is limited to three
-hues that stay distinguishable for colour-blind readers in every pairing (checked with the dataviz
-palette validator). Dark grey marks reference baselines. Variants within a family differ by line
-style and marker, so no figure depends on colour alone.
+Final figures (scripts/make_figures.py) call ``apply()`` and are drawn at their printed size
+(``DOUBLE`` or ``SINGLE`` column width, in inches), so the font sizes below are the sizes on the
+page: 8 pt text and 7.5 pt tick labels. They are saved as 300 dpi PNGs; if a PDF is ever needed,
+TrueType fonts are embedded (``pdf.fonttype`` 42). Colour encodes the model family and is limited
+to three hues chosen to stay distinguishable for colour-blind readers. Dark grey marks reference
+baselines. Variants within a family differ by line style and marker, so no figure depends on
+colour alone.
 
     from enso_climate import plotting
     plotting.apply()
     fig, ax = plt.subplots(figsize=(plotting.DOUBLE, 3.0))
 
 The experiment figures in reports/figures/ keep their own look (``style``, ``suptitle``,
-``plot_acc_rmse`` and the further colours below; tests/test_plotting.py pins the values) and do
-not call ``apply()``. Importing this module does not select a matplotlib backend; scripts call
+``plot_acc_rmse`` and the further colours below) and do not call ``apply()``. Importing this module does not select a matplotlib backend; scripts call
 ``matplotlib.use("Agg")`` first.
 """
 
@@ -34,7 +32,7 @@ SHADE = "#e1e0d9"
 
 SOLID, DASHED, DOTTED, DASHDOT = "-", (0, (5, 2)), (0, (1, 1.3)), (0, (5, 1.5, 1, 1.5))
 
-# Figure widths in inches: AMS column (19 pc) and page (39 pc) widths, close to AGU and Springer.
+# Figure widths in inches: one column and the full page.
 SINGLE, DOUBLE = 3.2, 6.5
 
 RC = {
@@ -92,7 +90,7 @@ RC = {
 
 
 def apply() -> None:
-    """Set the publication style for the rest of the session."""
+    """Set the final-figure style for the rest of the session."""
     import matplotlib as mpl
 
     mpl.rcParams.update(RC)

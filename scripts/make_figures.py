@@ -1,15 +1,15 @@
-"""Publication versions of the manuscript figures, drawn from saved results only.
+"""Summary figures drawn from saved results only.
 
 No model is fitted. Reads reports/tables/*.csv (and data/processed/enso_monthly.csv for the
-RONI history) and writes 300 dpi PNGs to paper/figures/, without embedded titles so that the
-captions carry the description. Reference lines are drawn only where the text uses them
-(ACC = 0.5, zero difference, the RONI thresholds); significance is shown by filled markers
+RONI history) and writes untitled 300 dpi PNGs to reports/figures/final/. Reference lines mark
+ACC = 0.5, zero difference and the RONI thresholds; significance is shown by filled markers
 rather than shaded bands.
 
 Fonts, sizes, ticks, spines and colours come from enso_climate.plotting: blue = seasonal
 recharge oscillator or warm water volume, orange = index network or Niño-3.4, aqua = CNN, dark
 grey = reference baselines. Variants within a family differ by line style and marker.
-    python scripts/make_paper_figures.py
+
+    python scripts/make_figures.py
 """
 
 from __future__ import annotations
@@ -20,21 +20,21 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from enso_climate import plotting  # noqa: E402
-from enso_climate.plotting import (AQUA, AXIS, BLUE, COOL, DASHDOT, DASHED, DOTTED, INK2, NEUTRAL,  # noqa: E402
+from enso_climate import plotting
+from enso_climate.plotting import (AQUA, AXIS, BLUE, COOL, DASHDOT, DASHED, DOTTED, INK2, NEUTRAL,
                                     ORANGE, PALE, SOLID, WARM)
-from enso_climate.plotting import DOUBLE as WIDTH  # noqa: E402
-from enso_climate.plotting import panel_label as panel  # noqa: E402
+from enso_climate.plotting import DOUBLE as WIDTH
+from enso_climate.plotting import panel_label as panel
 
 TABLES = ROOT / "reports" / "tables"
 PROCESSED = ROOT / "data" / "processed"
-OUT = ROOT / "paper" / "figures"
+OUT = ROOT / "reports" / "figures" / "final"
 
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 COLUMNS = ["model", "start", "lead", "forecast", "observed"]
@@ -57,7 +57,7 @@ def line(ax, x, y, spec: dict, label: str, filled=None) -> None:
 
 
 def skill_threshold(ax) -> None:
-    """ACC = 0.5, the usual threshold for useful skill, referred to in the text."""
+    """ACC = 0.5, the usual threshold for useful skill."""
     ax.axhline(0.5, color=AXIS, linewidth=0.8, zorder=0)
 
 

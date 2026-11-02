@@ -23,25 +23,25 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor  # noqa: E402
-from sklearn.neural_network import MLPRegressor  # noqa: E402
-from sklearn.pipeline import make_pipeline  # noqa: E402
-from sklearn.preprocessing import StandardScaler  # noqa: E402
-from sklearn.svm import SVR  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
+from sklearn.neural_network import MLPRegressor
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVR
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from enso_climate.paths import ensure_output_directories  # noqa: E402
+from enso_climate.paths import ensure_output_directories
 
-from enso_climate.forecast import (  # noqa: E402
+from enso_climate.forecast import (
     INPUT_SETS, TRAIN_START, Climatology, FeatureSpec, MonthlyRidge, RidgeModel, RollingConfig, SklearnModel, bootstrap_difference,
     bootstrap_skill, load_inputs, load_monthly, load_quarterly, mark_significant, rolling_forecasts, skill_table,
 )
-from enso_climate.plotting import (  # noqa: E402
+from enso_climate.plotting import (
     AMBER, AXIS, BLUE, GREEN, GRID, INK, INK2, LIGHT_BLUE, MONTHS, MUTED, ORANGE, PINK, SERIES, plot_acc_rmse, style,
     suptitle,
 )

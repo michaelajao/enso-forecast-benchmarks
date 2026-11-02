@@ -24,24 +24,24 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-from scipy.stats import norm  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy.stats import norm
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from enso_climate.paths import ensure_output_directories  # noqa: E402
+from enso_climate.paths import ensure_output_directories
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from enso_climate.data import box_mean, load_ersst  # noqa: E402
-from enso_climate.forecast import (  # noqa: E402
+from enso_climate.data import box_mean, load_ersst
+from enso_climate.forecast import (
     FORECAST_COLUMNS, TRAIN_START, FeatureSpec, RidgeModel, RollingConfig, anomalies_from_training,
     anomaly_correlation, block_resample, bootstrap_difference, crps_gaussian, cs_lim_forecasts,
     fit_cyclostationary_lim, load_inputs, mark_significant, rolling_forecasts, select_forecasts, skill_table,
 )
-from enso_climate.plotting import AXIS, BLUE, GREEN, INK2, MONTHS, ORANGE, PINK, style, suptitle  # noqa: E402
+from enso_climate.plotting import AXIS, BLUE, GREEN, INK2, MONTHS, ORANGE, PINK, style, suptitle
 
 TABLES = ROOT / "reports" / "tables"
 FIGURES = ROOT / "reports" / "figures"
@@ -351,7 +351,7 @@ def e18_attribution() -> None:
     d["total"] = d.from_nino34 + d.from_wwv + d["mean"]
 
     def summarise(g):
-        acc = lambda f: anomaly_correlation(f, g.observed)  # noqa: E731
+        acc = lambda f: anomaly_correlation(f, g.observed)
         var_t, var_h = g.from_nino34.var(), g.from_wwv.var()
         return pd.Series({"acc_total": acc(g.total), "acc_nino34_part": acc(g.from_nino34), "acc_wwv_part": acc(g.from_wwv),
                           "wwv_variance_share": var_h / (var_t + var_h)})
